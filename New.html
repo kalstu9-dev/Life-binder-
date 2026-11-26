@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#a62c50">
+<meta name="description" content="A colorful scrapbook-style personal life binder and daily planner.">
+<link rel="manifest" href="manifest.json">
+<title>My Life Binder</title>
+<style>
+:root{--ink:#59445b;--muted:#88788a;--pink:#f2dce9;--lav:#e9ddf5;--yellow:#fff0ce;--green:#e6f0e4;--blue:#e4edf8;--paper:#fffdfb;--line:#eadfe8;--accent:#a77fba}
+*{box-sizing:border-box}body{margin:0;background:#faf5f8;color:var(--ink);font-family:ui-rounded,"Avenir Next",system-ui,-apple-system,sans-serif;padding-bottom:90px}
+header{padding:22px 18px 18px;background:linear-gradient(135deg,#f4dce9,#e9ddf5 65%,#fff0ce);border-radius:0 0 28px 28px;box-shadow:0 4px 18px #745b6a12}
+.kicker{font-size:11px;letter-spacing:1.7px;font-weight:800;color:#856b83}.hero{font-family:Georgia,serif;font-size:32px;margin:7px 0 4px}.sub{font-size:13px;color:#765f78}
+.date{font-size:12px;margin-top:15px;font-weight:700;color:#765f78}
+main{max-width:760px;margin:auto;padding:16px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fffdfbf2;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;overflow-x:auto;gap:5px;padding:8px 8px max(8px,env(safe-area-inset-bottom));z-index:5}
+nav button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:11px;min-width:64px;padding:7px 5px;border-radius:14px}
+nav button.active{background:var(--lav);color:#684b79;font-weight:800}
+nav .emoji{display:block;font-size:19px;margin-bottom:3px}
+h2{font-family:Georgia,serif;font-size:25px;margin:4px 0 12px}h3{font-size:15px;margin:14px 0 8px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:15px;margin:11px 0;box-shadow:0 3px 12px #765a7010}
+.tint-pink{background:var(--pink)}.tint-lav{background:var(--lav)}.tint-yellow{background:var(--yellow)}.tint-green{background:var(--green)}.tint-blue{background:var(--blue)}
+.small{font-size:12px;color:var(--muted)}.row{display:flex;align-items:center;gap:9px}.between{justify-content:space-between}
+input,textarea,select{width:100%;border:1px solid #e6d9e4;border-radius:12px;background:#fff;padding:11px;color:var(--ink);font:inherit;font-size:14px;margin:4px 0 9px}
+textarea{min-height:105px;resize:vertical}button{cursor:pointer}
+.btn{border:0;background:#8e6ba0;color:white;border-radius:12px;padding:11px 14px;font:inherit;font-weight:700}.btn.light{background:#f1e6f3;color:#684b79}.btn.danger{background:#f7e2e7;color:#8b5267}
+.task{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #e9dce6}.task:last-child{border:0}.task input{width:19px;height:19px;margin:0;accent-color:#9a79aa}.task.done span{text-decoration:line-through;color:#a394a4}
+.progress{height:9px;background:#eee5ed;border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:#a88ac3;border-radius:99px}
+.pill{font-size:11px;font-weight:800;letter-spacing:.5px;color:#806b83}
+.time{width:82px;font-weight:800;font-size:12px}.activity{flex:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{border-radius:16px;padding:13px}.stat strong{font-size:25px;display:block}
+.hidden{display:none!important}.empty{color:var(--muted);font-size:13px;padding:12px 0}
+footer{text-align:center;color:#9b879b;font-size:10px;letter-spacing:1px;padding:18px}
+
+:root{--ink:#38272d;--muted:#50303a;--pink:#f4d5df;--lav:#f3e3d5;--yellow:#fff3e2;--green:#f7e9db;--blue:#f1dce0;--paper:#fffaf1;--line:#d9b8bd;--accent:#741c39}
+body{background:radial-gradient(ellipse at 10% 15%,#df8299 0,transparent 45%),linear-gradient(125deg,#8b2346,#b94d6b 35%,#771d39 65%,#c66b84);background-attachment:fixed;color:var(--ink);font-family:system-ui,-apple-system,sans-serif;color-scheme:light}
+header{max-width:760px;margin:auto;background:linear-gradient(145deg,#fffaf1,#f3e3d5);box-shadow:0 7px 16px #45102638;padding-bottom:30px;position:relative}header:after{content:'';position:absolute;bottom:9px;left:18px;right:18px;height:12px;border-radius:10px;background-color:#fff4e7;background-image:radial-gradient(ellipse at 10px 8px,#35252a 0 4px,transparent 5px),radial-gradient(ellipse at 29px 19px,#35252a 0 5px,transparent 6px);background-size:39px 28px}
+.hero,h2,h3,.pill,.kicker,.card b,.stat strong,.card strong{color:#741c39}h2{background:#fff4e5;border-radius:15px;padding:12px 15px}h3{font-family:Georgia,serif;font-size:20px}.sub,.date,.small,.empty{color:#50303a;font-weight:500}.page>p.small{background:#fff4e5;padding:10px;border-radius:12px}.card,.stat{background:linear-gradient(145deg,#fffaf1,#f3e3d5);border:1px solid #fff7e8;border-radius:21px;box-shadow:0 7px 16px #45102638,inset 0 1px 2px white}.btn{background:linear-gradient(#a94465,#741c39);color:#fff8ef}.btn.light{background:#f1dce0;color:#741c39}.btn.danger{color:#741c39}nav{background:#fff1e5}nav button{color:#50303a}nav button.active{background:#741c39;color:#fff8ef}.task input{accent-color:#741c39}.task.done span{color:#65434e}.progress{background:#e8cbd0}.progress>i{background:linear-gradient(90deg,#741c39,#c66b84)}input,textarea,select{background:#fffcf6;border-color:#b88c99;color:#38272d}input::placeholder,textarea::placeholder{color:#63454f}footer{color:#fff8ef}.page:not(.hidden){animation:appear .25s ease}@keyframes appear{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}button:active{transform:scale(.98)}
+.homeTile{background:linear-gradient(145deg,#fff9ef,#efdcd2);border:1px solid #fff9ef;border-radius:17px;padding:15px;text-align:left;color:#741c39;min-height:90px;box-shadow:0 5px 10px #45102626;font:inherit}.homeTile b{display:block;font:18px Georgia;margin:7px 0}.homeTile span{font-size:12px;color:#50303a}.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#a62c50 0%,#e9c9d0 0);flex-shrink:0}.ring>div{background:#fff5e9;width:96px;height:96px;border-radius:50%;display:grid;place-content:center;text-align:center;color:#741c39}.ring strong{font:30px Georgia}.water{display:flex;justify-content:space-between}.water button{background:none;border:0;font-size:24px;padding:3px}.chat{background:#f0d8dc;padding:14px;border-radius:15px;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+ <div class="row between"><span class="kicker">THE LIFE BINDER • EST. 2026</span><span>🎀</span></div>
+ <div class="hero">Hello, gorgeous.</div>
+ <div class="sub">A beautiful life, by design.</div>
+ <div class="date" id="todayDate"></div>
+</header>
+<main>
+<section id="today" class="page">
+ <div class="card row between"><div><div class="pill">YOUR DAILY GLOW</div><h3 style="font-size:28px">Becoming <i>her.</i></h3><div class="small">Progress over perfection.</div></div><div class="ring" id="glowRing"><div><strong id="glowPct">0%</strong><span class="small">Daily rituals</span></div></div></div><div class="grid"><button class="homeTile" data-jump="money">♧<b>Money Moves</b><span>Build your freedom</span></button><button class="homeTile" data-jump="glow">♡<b>The Glow Room</b><span>Beauty & self-care</span></button><button class="homeTile" data-jump="calendar">▦<b>My Agenda</b><span>Own your time</span></button><button class="homeTile" data-jump="body">✧<b>Body Goals</b><span>Strong & feminine</span></button><button class="homeTile" data-jump="goals">♛<b>Becoming Her</b><span>Your dream life</span></button><button class="homeTile" data-jump="journal">✎<b>Dear Diary</b><span>Your private space</span></button></div><div class="card"><h3>Hydrated & glowing</h3><div class="water" id="water"></div><div class="small" id="waterCount"></div></div>
+ <div class="card tint-yellow"><div class="pill">TODAY'S INTENTION</div><input id="intention" placeholder="What matters most today?"></div>
+ <div class="grid">
+  <div class="stat tint-green"><span class="small">COMPLETED</span><strong id="completed">0</strong></div>
+  <div class="stat tint-pink"><span class="small">REMAINING</span><strong id="remaining">0</strong></div>
+ </div>
+ <div class="card"><div class="row between"><h3>My priorities</h3><span class="small" id="percent">0%</span></div><div class="progress"><i id="bar" style="width:0%"></i></div><div id="todayTasks"></div></div>
+ <div class="card tint-lav"><b>🌷 A gentle reminder</b><p class="small">You don't have to do everything today. Start with the next small thing.</p></div>
+</section>
+<section id="schedule" class="page hidden">
+ <h2>Daily schedule 🕒</h2><div class="card tint-lav"><div class="grid"><label class="small">WAKE UP<input id="wake" type="time" value="03:30"></label><label class="small">BEDTIME<input id="bed" type="time" value="19:30"></label></div></div>
+ <div class="card"><h3>My time blocks</h3><div id="scheduleList"></div><div class="row"><input id="newTime" type="time" value="12:00" style="max-width:115px"><input id="newActivity" placeholder="Add an activity"></div><button class="btn" id="addSchedule">＋ Add to schedule</button></div>
+</section>
+<section id="tasks" class="page hidden">
+ <h2>My task list 📋</h2><div class="card"><div class="row"><input id="taskInput" placeholder="Write a task..." style="margin-bottom:0"><button class="btn" id="addTask">＋</button></div><div id="allTasks"></div></div>
+</section>
+<section id="habits" class="page hidden">
+ <h2>Little habits 🌱</h2><p class="small">Check off the habits you practice today.</p><div class="card" id="habitList"></div>
+</section>
+<section id="journal" class="page hidden">
+ <h2>Dear Diary</h2><div class="card tint-pink"><b>How am I feeling?</b><div id="moods" class="row" style="flex-wrap:wrap;margin-top:10px"></div></div>
+ <div class="card"><label class="small">TODAY'S ENTRY<textarea id="journalText" placeholder="Dear diary, today I feel..."></textarea></label><button class="btn" id="saveJournal">Save today's entry</button><p class="small" id="journalStatus"></p></div>
+</section>
+<section id="money" class="page hidden">
+ <h2>Money Moves</h2><div class="card"><div class="pill">PAYCHECK PLANNER</div><h3>My biweekly budget</h3><label>Budget paycheck ($)<input id="budgetPay" type="number" min="0" step="0.01"></label><div id="budgetBreakdown"></div></div><div class="card tint-green"><div class="pill">CURRENT SAVINGS</div><div style="font:30px Georgia;margin:5px 0" id="moneyDisplay">$0</div><div class="progress"><i id="moneyBar"></i></div><p class="small" id="moneyLeft"></p></div>
+ <div class="card"><label class="small">SAVINGS BALANCE ($)<input id="savings" type="number" min="0" step="0.01"></label><label class="small">SAVINGS GOAL ($)<input id="savingsGoal" type="number" min="1" step="1" value="0"></label><button class="btn" id="saveMoney">Save amounts</button></div>
+ <p class="small">This is a manual tracker, not connected to your bank.</p>
+</section>
+<section id="goals" class="page hidden">
+ <h2>My next chapter</h2><div class="card tint-yellow"><b>My current big goal</b><textarea id="goalText" placeholder="What are you working toward?"></textarea><button class="btn" id="saveGoal">Save my goal</button></div><div class="card"><h3>Little milestones</h3><div id="milestones"></div><div class="row"><input id="milestoneInput" placeholder="Add a milestone"><button class="btn" id="addMilestone">＋</button></div></div>
+</section>
+<section id="weekly" class="page hidden">
+ <h2>Weekly reset 🗓️</h2><div class="card tint-blue"><b>Plan a softer, more organized week.</b><div id="weeklyList"></div></div>
+</section>
+<section id="calendar" class="page hidden"><h2>My Agenda</h2><div class="card"><h3>My work shifts & paydays</h3><label>Date<input id="eventDate" type="date"></label><label>Shift or event<input id="eventText" placeholder="Work 6 AM – 2 PM"></label><button class="btn" id="addEvent">Add event</button><div id="eventList"></div></div></section><section id="glow" class="page hidden"><h2>The Glow Room</h2><div class="card"><h3>My rituals</h3><label class="task"><input type="checkbox" data-extra="glow0">Gentle cleanser</label><label class="task"><input type="checkbox" data-extra="glow1">Moisturizer</label><label class="task"><input type="checkbox" data-extra="glow2">Sunscreen</label><label class="task"><input type="checkbox" data-extra="glow3">Hair refresh</label><label class="task"><input type="checkbox" data-extra="glow4">Evening cleanser</label><label class="task"><input type="checkbox" data-extra="glow5">Night moisturizer</label><label class="task"><input type="checkbox" data-extra="glow6">Body lotion</label><label class="task"><input type="checkbox" data-extra="glow7">Restock star pimple patches</label></div></section><section id="body" class="page hidden"><h2>Body Goals</h2><div class="card"><h3>My rituals</h3><label class="task"><input type="checkbox" data-extra="body0">Gentle warm-up</label><label class="task"><input type="checkbox" data-extra="body1">Strength workout</label><label class="task"><input type="checkbox" data-extra="body2">Core exercises</label><label class="task"><input type="checkbox" data-extra="body3">Stretching</label><label class="task"><input type="checkbox" data-extra="body4">Rest and recovery</label></div></section><section id="sassy" class="page hidden"><h2>Meet Sassy 💋</h2><div class="card"><h3>Bestie & personal assistant</h3><div class="chat" id="sassyReply">Hey gorgeous! What are we working on today?</div><div class="grid"><button class="btn light" data-sassy="money">Money advice</button><button class="btn light" data-sassy="routine">My routine</button><button class="btn light" data-sassy="motivation">Motivate me</button><button class="btn light" data-sassy="rest">I need rest</button></div><p class="small">Scripted companion; not connected to AI.</p></div></section><footer>♡ MY LIFE · MY ROUTINE · MY FUTURE ♡</footer>
+</main>
+<nav id="nav">
+ <button data-page="today" class="active"><span class="emoji">☀️</span>Today</button>
+ <button data-page="schedule"><span class="emoji">🕒</span>Schedule</button>
+ <button data-page="tasks"><span class="emoji">📋</span>Tasks</button>
+ <button data-page="habits"><span class="emoji">🌱</span>Habits</button>
+ <button data-page="journal"><span class="emoji">📔</span>Journal</button>
+ <button data-page="money"><span class="emoji">💸</span>Money</button>
+ <button data-page="goals"><span class="emoji">⭐</span>Goals</button>
+ <button data-page="weekly"><span class="emoji">🗓️</span>Weekly</button>
+<button data-page="calendar"><span class="emoji">▦</span>Agenda</button><button data-page="glow"><span class="emoji">♡</span>Glow</button><button data-page="body"><span class="emoji">✧</span>Body</button><button data-page="sassy"><span class="emoji">💋</span>Sassy</button></nav>
+<script>
+const $=id=>document.getElementById(id);
+const todayKey=new Date().toLocaleDateString('en-CA');
+$('todayDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
+const defaults=[
+ {name:'Wake up and drink water',time:'03:30',done:false},{name:'Make bed and get dressed',time:'03:40',done:false},
+ {name:'Skincare and hygiene',time:'04:00',done:false},{name:'Stretch or exercise',time:'04:20',done:false},
+ {name:'Journal and plan',time:'04:45',done:false},{name:'Breakfast and prepare',time:'05:15',done:false},
+ {name:'Work or daily responsibilities',time:'06:00',done:false},{name:'Evening reset',time:'18:00',done:false},{name:'Wind down for bed',time:'19:00',done:false}
+];
+const habits=['Drink water','Exercise or stretch','Skincare','Journal','Read','Tidy my space','Get enough sleep'];
+const weekly=['Review finances','Clean my space','Plan meals and groceries','Review appointments','Prepare outfits','Reflect on my progress'];
+let data={tasks:defaults,schedule:defaults.map(x=>({...x})),intention:'',wake:'03:30',bed:'19:30',savings:0,savingsGoal:0,goal:'',milestones:[],journal:{},mood:{},habits:{},weekly:{}};
+try{const saved=JSON.parse(localStorage.getItem('lifeBinderData')||'null');if(saved)data={...data,...saved}}catch(e){}
+function persist(){localStorage.setItem('lifeBinderData',JSON.stringify(data))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function taskHTML(list,kind){return list.map((t,i)=>`<div class="task ${t.done?'done':''}"><input type="checkbox" data-kind="${kind}" data-i="${i}" ${t.done?'checked':''}><span>${esc(t.name)}</span>${kind==='schedule'?`<span class="small">${esc(t.time||'')}</span>`:''}<button class="btn light" data-delete="${kind}" data-i="${i}" aria-label="Delete task">×</button></div>`).join('')||'<div class="empty">Nothing here yet. Add your first item above. ✿</div>'}
+function render(){
+ $('intention').value=data.intention;$('wake').value=data.wake;$('bed').value=data.bed;
+ $('todayTasks').innerHTML=taskHTML(data.tasks.slice(0,5),'tasks');$('allTasks').innerHTML=taskHTML(data.tasks,'tasks');
+ $('scheduleList').innerHTML=taskHTML(data.schedule.sort((a,b)=>(a.time||'').localeCompare(b.time||'')),'schedule');
+ const done=data.tasks.filter(t=>t.done).length, pct=data.tasks.length?Math.round(done/data.tasks.length*100):0;
+ $('completed').textContent=done;$('remaining').textContent=data.tasks.length-done;$('percent').textContent=pct+'%';$('bar').style.width=pct+'%';
+ $('habitList').innerHTML=habits.map((h,i)=>`<div class="task"><input type="checkbox" data-habit="${i}" ${data.habits[todayKey]?.[i]?'checked':''}><span>${h}</span></div>`).join('');
+ $('journalText').value=data.journal[todayKey]||'';$('moods').innerHTML=['😊','🥰','😔','😌','😤','🥹','😴'].map(m=>`<button class="btn light" data-mood="${m}" style="${data.mood[todayKey]===m?'outline:2px solid #9b78ad':''}">${m}</button>`).join('');
+ $('savings').value=data.savings;$('savingsGoal').value=data.savingsGoal;$('moneyDisplay').textContent='$'+Number(data.savings||0).toLocaleString();let mp=Math.min(100,Math.max(0,Number(data.savings||0)/Math.max(1,Number(data.savingsGoal||1))*100));$('moneyBar').style.width=mp+'%';$('moneyLeft').textContent='$'+Math.max(0,Number(data.savingsGoal||0)-Number(data.savings||0)).toLocaleString()+' left to reach your goal';
+ $('goalText').value=data.goal;$('milestones').innerHTML=data.milestones.map((m,i)=>`<div class="task"><input type="checkbox" data-mile="${i}" ${m.done?'checked':''}><span>${esc(m.name)}</span><button class="btn light" data-mdelete="${i}">×</button></div>`).join('')||'<div class="empty">Your milestones will live here.</div>';
+ $('weeklyList').innerHTML=weekly.map((w,i)=>`<div class="task"><input type="checkbox" data-week="${i}" ${data.weekly[i]?'checked':''}><span>${w}</span></div>`).join('');
+ persist();
+}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));$(b.dataset.page).classList.remove('hidden');document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));window.scrollTo(0,0)}));
+$('intention').addEventListener('input',e=>{data.intention=e.target.value;persist()});
+$('wake').addEventListener('change',e=>{data.wake=e.target.value;persist()});$('bed').addEventListener('change',e=>{data.bed=e.target.value;persist()});
+$('addTask').onclick=()=>{let v=$('taskInput').value.trim();if(v){data.tasks.push({name:v,done:false,time:''});$('taskInput').value='';render()}};
+$('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click()});
+$('addSchedule').onclick=()=>{let n=$('newActivity').value.trim();if(n){data.schedule.push({name:n,time:$('newTime').value,done:false});$('newActivity').value='';render()}};
+$('saveJournal').onclick=()=>{data.journal[todayKey]=$('journalText').value;persist();$('journalStatus').textContent='Saved on this device for today ♡'};
+$('saveMoney').onclick=()=>{data.savings=Number($('savings').value||0);data.savingsGoal=Number($('savingsGoal').value||0);render()};
+$('saveGoal').onclick=()=>{data.goal=$('goalText').value;persist()};
+$('addMilestone').onclick=()=>{let v=$('milestoneInput').value.trim();if(v){data.milestones.push({name:v,done:false});$('milestoneInput').value='';render()}};
+$('milestoneInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addMilestone').click()});
+document.addEventListener('change',e=>{
+ if(e.target.dataset.kind){let list=data[e.target.dataset.kind],i=Number(e.target.dataset.i);if(list[i])list[i].done=e.target.checked;render()}
+ if(e.target.dataset.habit!==undefined){let a=data.habits[todayKey]||Array(7).fill(false);a[Number(e.target.dataset.habit)]=e.target.checked;data.habits[todayKey]=a;persist()}
+ if(e.target.dataset.mile!==undefined){data.milestones[Number(e.target.dataset.mile)].done=e.target.checked;render()}
+ if(e.target.dataset.week!==undefined){data.weekly[Number(e.target.dataset.week)]=e.target.checked;persist()}
+});
+document.addEventListener('click',e=>{
+ if(e.target.dataset.delete){let k=e.target.dataset.delete;data[k].splice(Number(e.target.dataset.i),1);render()}
+ if(e.target.dataset.mdelete!==undefined){data.milestones.splice(Number(e.target.dataset.mdelete),1);render()}
+ if(e.target.dataset.mood){data.mood[todayKey]=e.target.dataset.mood;render()}
+});
+
+data.extra=data.extra||{};data.water=data.water||{};data.budgetPay=data.budgetPay??0;
+function extras(){let w=data.water[todayKey]||0; $('water').innerHTML=Array.from({length:8},(_,i)=>`<button data-water="${i+1}" style="opacity:${i<w?1:.35}" aria-label="${i+1} glasses">💧</button>`).join('');$('waterCount').textContent=w+' of 8 glasses';let pct=Math.round((data.tasks.filter(t=>t.done).length+w/8)/(data.tasks.length+1)*100);$('glowPct').textContent=pct+'%';$('glowRing').style.background=`conic-gradient(#a62c50 ${pct}%,#e9c9d0 0)`;document.querySelectorAll('[data-extra]').forEach(x=>x.checked=!!data.extra[todayKey]?.[x.dataset.extra]);$('budgetPay').value=data.budgetPay;$('budgetBreakdown').textContent=['Needs 50%','Wants 30%','Savings 20%'].map((x,i)=>x+': $'+(data.budgetPay*[.5,.3,.2][i]).toFixed(2)).join(' · ')}
+const originalRender=render;render=function(){originalRender();extras()};
+document.addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;if(b.dataset.jump)document.querySelector(`nav [data-page="${b.dataset.jump}"]`).click();if(b.dataset.water){let n=+b.dataset.water;data.water[todayKey]=data.water[todayKey]===n?n-1:n;persist();extras()}if(b.dataset.sassy)$('sassyReply').textContent={money:'Cover essentials first, then save what you can afford.',routine:'Prepare your outfit the night before and protect your sleep.',motivation:'Pick one small thing to finish today and celebrate it.',rest:'Rest counts too. Give yourself permission to slow down.'}[b.dataset.sassy]});
+document.addEventListener('change',e=>{if(e.target.dataset.extra){(data.extra[todayKey]??={})[e.target.dataset.extra]=e.target.checked;persist()}if(e.target.id==='budgetPay'){data.budgetPay=Math.max(0,Number(e.target.value)||0);persist();extras()}});
+
+data.events=data.events||[];
+function showEvents(){ $('eventList').innerHTML=data.events.map((e,i)=>`<div class="task"><b>${esc(e.date)}</b><span>${esc(e.text)}</span><button class="btn light" data-event-delete="${i}">×</button></div>`).join(''); }
+$('addEvent').onclick=()=>{const date=$('eventDate').value,text=$('eventText').value.trim();if(date&&text){data.events.push({date,text});data.events.sort((a,b)=>a.date.localeCompare(b.date));persist();showEvents();$('eventText').value='';}};
+document.addEventListener('click',e=>{if(e.target.dataset.eventDelete!==undefined){data.events.splice(Number(e.target.dataset.eventDelete),1);persist();showEvents();}});showEvents();
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
